@@ -1,0 +1,108 @@
+﻿
+@media all and (min-width: 1600px) {
+
+/* GLOBAL STYLES */
+
+.center-1 {
+	margin-bottom: 90px;
+}
+.center-2 {
+	width: calc(100% - 285px);
+	margin-bottom: 90px;
+}
+.side-2 {
+	width: 275px;
+	margin-bottom: 90px;
+}
+
+/* HOME PAGE */
+
+.home-page .page-body {
+	row-gap: 90px;
+}
+.home-page .banners > div {
+	margin-top: 90px;
+}
+
+/* CATALOG PAGES */
+
+.center-1 .item-grid {
+	grid-template-columns: repeat(6,1fr);
+}
+.center-2 .item-grid {
+	grid-template-columns: repeat(5,1fr);
+}
+.category-grid {
+	margin-top: 90px;
+}
+.category-grid .item-grid {
+	grid-template-columns: repeat(4,1fr) !important;
+}
+.category-item .title {
+	padding: 15px 20px;
+}
+
+/* PRODUCT PAGE */
+
+.product-essential {
+	grid-template-columns: 33% auto 25%;
+	grid-column-gap: 40px;
+}
+.overview + .overview {
+	padding: 0 20px 0 40px;
+}
+
+/* ACCOUNT PAGES */
+
+.account-page .address-item,
+.account-page .order-item,
+.account-page .return-item,
+.gdpr-tools-page .fieldset {
+    padding: 25px 30px 30px;
+}
+
+/* SHOPPING CART */
+
+.cart-collaterals > div,
+.cart-footer .totals {
+	padding: 25px 30px;
+}
+.estimate-shipping-button {
+	padding: 20px 25px;
+}
+.cart-total .order-total td {
+	padding-top: 30px;
+}
+.cart-total .order-total td:before {
+	top: 15px;
+    left: -10px;
+    right: -10px;
+}
+.product-grid.cross-sells {
+	margin-top: 60px;
+}
+
+/* CHECKOUT */
+
+.checkout-page .edit-buttons {
+    top: 20px; right: 20px;
+}
+.checkout-page .address-item {
+    padding: 25px 30px 30px;
+}
+.checkout-page .address-box {
+	margin-bottom: 20px;
+}
+.checkout-page .address-box .name {
+	margin-bottom: 5px;
+}
+
+/* ORDER DETAILS */
+
+.order-review-data > div,
+.order-details-area > div,
+.shipment-details-area > div {
+	padding: 25px 30px 30px;
+}
+
+}

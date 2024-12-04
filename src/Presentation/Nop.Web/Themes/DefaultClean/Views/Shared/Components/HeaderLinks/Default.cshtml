@@ -1,0 +1,115 @@
+﻿@model HeaderLinksModel
+@using Nop.Core.Domain.Customers
+@inject Nop.Core.IWebHelper webHelper
+
+<div class="header-links">
+    <ul>
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderLinksBefore, additionalData = Model })
+        @if (Model.IsAuthenticated)
+        {
+            <li>
+                <a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">
+                    <svg class="icon_header" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15.5 7.5C15.5 9.433 13.933 11 12 11C10.067 11 8.5 9.433 8.5 7.5C8.5 5.567 10.067 4 12 4C13.933 4 15.5 5.567 15.5 7.5Z" 
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M5 18C5 15.7909 6.79086 14 9 14H15C17.2091 14 19 15.7909 19 18V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V18Z"
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <p class="account_header">@Model.CustomerName</p>
+                </a>
+            </li>
+            @* <a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a> *@
+        }
+        else
+        {
+            var returnUrl = Context.Request.Query.TryGetValue("returnUrl", out var url) && !StringValues.IsNullOrEmpty(url)
+                ? url.ToString()
+                : webHelper.GetRawUrl(Context.Request);
+
+            @* <li><a href="@Url.RouteUrl("Register", new { returnUrl })" class="ico-register">@T("Account.Register")</a></li> *@
+            <li>
+                <a href="@Url.RouteUrl("Login", new { returnUrl })" class="ico-login">
+                    <svg class="icon_header" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15.5 7.5C15.5 9.433 13.933 11 12 11C10.067 11 8.5 9.433 8.5 7.5C8.5 5.567 10.067 4 12 4C13.933 4 15.5 5.567 15.5 7.5Z"
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M5 18C5 15.7909 6.79086 14 9 14H15C17.2091 14 19 15.7909 19 18V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V18Z" 
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <p class="account_header">@T("Account.Login")</p>
+                </a>
+            </li>
+        }
+        @if (Model.AllowPrivateMessages)
+        {
+            <li>
+                <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="ico-inbox">
+                    <svg class="icon_header" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="14" rx="2" stroke="#151515" stroke-width="1.5" />
+                        <path d="M3 8L11.0287 12.4604C11.6328 12.796 12.3672 12.796 12.9713 12.4604L21 8" 
+                        stroke="#151515" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M15 12L20 18" stroke="#151515" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M9 12L4 18" stroke="#151515" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+                </a>
+            </li>
+        }
+        @if (Model.WishlistEnabled)
+        {
+            <li>
+                <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+                    <svg class="icon_header" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.6427 6.04627C17.8336 4.23718 14.9005 4.23718 13.0914 6.04627L12.0864 7.05125C12.0384 7.09925 11.9606 7.09925 11.9126 7.05125L10.9076 6.04627C9.09854 4.23718 6.16542 4.23718 4.35633 6.04627C2.54724 7.85537 2.54724 10.7885 4.35633 12.5976L11.565 19.8062C11.805 20.0462 12.1941 20.0462 12.4341 19.8062L19.6427 12.5976C21.4518 10.7885 21.4518 7.85537 19.6427 6.04627Z"
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    @* <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span> *@
+                </a>
+            </li>
+        }
+        @if (Model.ShoppingCartEnabled)
+        {
+            <li id="topcartlink">
+                <a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">
+                    <svg class="icon_header" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3.03296 3.25L4.50852 4.00109C4.8131 4.15613 5.01741 4.45598 5.05026 4.79617L5.99752 14.6071M5.99752 14.6071H16.6988M5.99752 14.6071V14.6071C4.99431 15.1446 4.78297 16.4921 5.5735 17.3108L5.72094 17.4635C5.89769 17.6466 6.14125 17.75 6.39572 17.75H19.9975"
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                        <circle cx="17.4976" cy="19.25" r="1.5" stroke="black" stroke-width="1.5" />
+                        <circle cx="8.49756" cy="19.25" r="1.5" stroke="black" stroke-width="1.5" />
+                        <path d="M6.00247 14.6078L5.31408 6.61529L20.1744 7.52642C20.839 7.56717 21.2789 8.23385 21.055 8.86089L19.4765 13.2805C19.1922 14.0765 18.4383 14.6078 17.593 14.6078H6.00247Z"
+                        stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    @*<span class="cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span> *@
+                </a>
+            </li>
+        }
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderLinksAfter, additionalData = Model })
+    </ul>
+    @if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+    {
+        //new private message notification
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(JavaScriptEncoder.Default.Encode(Model.AlertMessage))', 'success', false);
+            });
+        </script>
+    }
+    @if (Model.ShoppingCartEnabled)
+    {
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                $('.header').on('mouseenter', '#topcartlink', function () {
+                    $('#flyout-cart').addClass('active');
+                });
+                $('.header').on('mouseleave', '#topcartlink', function () {
+                    $('#flyout-cart').removeClass('active');
+                });
+                $('.header').on('mouseenter', '#flyout-cart', function () {
+                    $('#flyout-cart').addClass('active');
+                });
+                $('.header').on('mouseleave', '#flyout-cart', function () {
+                    $('#flyout-cart').removeClass('active');
+                });
+            });
+        </script>
+    }
+</div>

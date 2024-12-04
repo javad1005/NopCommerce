@@ -1,0 +1,67 @@
+﻿/********************************
+         3SM 
+*********************************/
+@media screen and (max-width : 300px) {
+
+    .store_products_continer {
+        height: fit-content;
+    }
+}
+
+/********************************
+         2SM 
+*********************************/
+@media screen and (min-width : 301px) and (max-width : 599px) {
+
+    .store_products_continer {
+        height: fit-content;
+    }
+}
+
+
+/********************************
+         SM 
+*********************************/
+@media screen and (min-width : 600px) and (max-width : 767px) {
+
+    .store_products_continer {
+        padding: 0px 10px;
+        height: fit-content;
+    }
+}
+
+
+/********************************
+         MD
+*********************************/
+@media screen and (min-width : 768px) and (max-width : 1023px) {
+
+
+    .store_products_continer {
+        padding: 0px 10px;
+        height: fit-content;
+    }
+}
+
+
+/********************************
+         LG 
+*********************************/
+@media screen and (min-width : 1024px) and (max-width : 1279px) {
+
+    .store_products_continer {
+        height: fit-content;
+    }
+}
+
+
+/********************************
+         XL 
+*********************************/
+@media screen and (min-width : 1280px) {
+
+    .store_products_continer {
+        padding: 0px 10px;
+        height: fit-content;
+    }
+}

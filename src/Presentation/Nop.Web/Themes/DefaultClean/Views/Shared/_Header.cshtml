@@ -1,0 +1,43 @@
+﻿<div class="header">
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderBefore })
+    <div class="header-upper">
+        <div class="header-selectors-wrapper">
+            @await Component.InvokeAsync(typeof(TaxTypeSelectorViewComponent))
+            @await Component.InvokeAsync(typeof(CurrencySelectorViewComponent))
+            @await Component.InvokeAsync(typeof(LanguageSelectorViewComponent))
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderSelectors })
+        </div>
+    </div>
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMiddle })
+    <div class="header-lower">
+        @* only mobile size *@
+        <div class="top_menu_icons">
+            <a class="search_link" href="@Url.RouteUrl("ProductSearch")">
+                <svg class="search_icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18.6761 10.8329C18.6761 15.2308 15.1109 18.7959 10.7131 18.7959C6.31519 18.7959 2.75 15.2308 2.75 10.8329C2.75 6.435 6.31519 2.86981 10.7131 2.86981C15.1109 2.86981 18.6761 6.435 18.6761 10.8329Z"
+                          stroke="black" stroke-width="1.5" />
+                    <path d="M21.2503 21.1523L16.5918 16.4938"
+                          stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+            </a>
+            <div class="menu_btn" onclick="ShowRightMenu()" >
+                <svg class="menu_icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 7H21" stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M3 12H21" stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M3 17H21" stroke="black" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+            </div>
+        </div>
+        <div class="header-logo">
+            @await Component.InvokeAsync(typeof(LogoViewComponent))
+        </div>
+        <div class="search-box store-search-box">
+            @await Component.InvokeAsync(typeof(SearchBoxViewComponent))
+        </div>
+        <div class="header-links-wrapper">
+            @await Component.InvokeAsync(typeof(HeaderLinksViewComponent))
+            @await Component.InvokeAsync(typeof(FlyoutShoppingCartViewComponent))
+        </div>
+    </div>
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderAfter })
+</div>

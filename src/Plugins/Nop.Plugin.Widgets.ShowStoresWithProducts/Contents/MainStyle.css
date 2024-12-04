@@ -1,0 +1,124 @@
+﻿/*#region start store style */
+.stores_continer {
+    width: 100%;
+}
+
+#stores_holder {
+
+}
+
+.store {
+    display: flex;
+    flex-direction: column;
+}
+
+    .store .store_titel {
+
+    }
+
+.store_titel .store_titel_icon {
+
+}
+
+.store_titel .store_titel_link {
+
+}
+
+
+/*#endregion end store style */
+/*#region start product box style */
+.store_products_swiper.swiper {
+    height: 100%;
+    padding-bottom: 8px;
+}
+
+.store_products_slide {
+    width: 140px;
+}
+
+.product_box {
+    height: fit-content;
+    border: none;
+    width: 100%;
+}
+
+.store_products_continer .product_img {
+    padding: 5px;
+    height: 190px;
+}
+
+    .store_products_continer .product_img img {
+        object-fit: cover;
+        width: 100%;
+        height: 180px;
+        border-radius: 15px;
+        border: none;
+    }
+
+/*#region start hearte icon style  */
+.store_products_slide .product_box .product_img .product_favorit path {
+    stroke: #ee0f0f;
+}
+
+    .store_products_slide .product_box .product_img .product_favorit path:active {
+        fill: #ee0f0f;
+    }
+
+/*#endregion end hearte icon style  */
+
+/*#region start product content style  */
+
+.store_products_continer .product_content {
+    padding: 10px;
+}
+
+.store_products_continer .product_titel {
+    font-weight: 700;
+}
+
+.store_products_continer .product_score {
+    float: left;
+    color: #747474;
+    display: flex;
+    flex-direction: row;
+}
+
+.store_products_continer .product_price {
+    margin-top: 5px;
+}
+
+/*#region star icon style  */
+.store_products_continer .product_score .product_score_svg path {
+    stroke: yellow;
+    fill: yellow;
+}
+/*#endregion star icon style  */
+
+/*#endregion end product content style  */
+
+
+/*#region start product content style2  */
+
+.products_continer .product_content {
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.products_continer .titel {
+    font-weight: 700;
+}
+
+.products_continer .score {
+    color: #747474;
+    display: flex;
+    flex-direction: row;
+}
+
+.products_continer .product_price {
+    color: #404040;
+    font-weight: 600;
+}
+
+/*#endregion end product content style2  */
+
+

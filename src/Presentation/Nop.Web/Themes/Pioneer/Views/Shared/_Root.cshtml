@@ -1,0 +1,109 @@
+﻿@using Nop.Core
+@using Nop.Core.Domain.Orders;
+@using Nop.Services.Configuration
+@using Nop.Services.Orders;
+@using Nop.Services.Security;
+
+@inject ISettingService settingService
+@inject IStoreContext storeContext
+@inject IPermissionService permissionService
+@inject IShoppingCartService shoppingCartService
+@inject IWorkContext workContext
+
+@{
+    Layout = "_Root.Head";
+
+    var storeId = (await storeContext.GetCurrentStoreAsync()).Id;
+    var controllerName = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var actionName = Url.ActionContext.RouteData.Values["action"].ToString();
+
+    var shoppingCartEnabled = await permissionService.AuthorizeAsync(StandardPermissionProvider.EnableShoppingCart);
+    var shoppingCartItems = await shoppingCartService.GetShoppingCartAsync(await workContext.GetCurrentCustomerAsync(), ShoppingCartType.ShoppingCart, storeId);
+    var shoppingCartItemsCount = shoppingCartItems.Sum(item => item.Quantity);
+    ViewBag.ShoppingCartEnabled = shoppingCartEnabled;
+    ViewBag.ShoppingCartItems = shoppingCartItemsCount;
+
+    bool categoriesSideMenuActive = await settingService.GetSettingByKeyAsync("PioneerThemeSettings.CategoriesSideMenu", true, storeId, true);
+    var categoriesSideMenuClass = categoriesSideMenuActive ? "modified" : "regular";
+}
+
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@{ await Html.RenderPartialAsync("_Notifications"); }
+@{ await Html.RenderPartialAsync("_JavaScriptDisabledWarning"); }
+@{ await Html.RenderPartialAsync("_OldInternetExplorerWarning"); }
+
+<div class="master-wrapper-page">
+    <script asp-location="Footer">
+        var localized_data = {
+            AjaxCartFailure: "@T("AjaxCart.Failure")"
+        };
+        AjaxCart.init(false, '.cart-qty', '.wishlist-qty', '#flyout-cart', localized_data);
+    </script>
+    <div class="overlayOffCanvas"></div>
+    @await Component.InvokeAsync(typeof(AdminHeaderLinksViewComponent))
+    <div class="responsive-nav-wrapper">
+        <div class="button menu-button">
+            <span>@T("SevenSpikes.Themes.Common.MenuTitle")</span>
+        </div>
+        <div class="button personal-button">
+            <span>@T("SevenSpikes.Themes.Common.Personal")</span>
+        </div>
+        <div class="header-logo">
+            @await Component.InvokeAsync(typeof(LogoViewComponent))
+        </div>
+        <div class="button search-button">
+            <span>@T("Search")</span>
+        </div>
+        @if (ViewBag.ShoppingCartEnabled != null && ViewBag.ShoppingCartEnabled)
+        {
+            <div class="button cart-button">
+                <a class="txt" href="@Url.RouteUrl("ShoppingCart")">
+                    <span class="cart-qty">@ViewBag.ShoppingCartItems</span>
+                </a>
+            </div>
+        }
+    </div>
+    @{ await Html.RenderPartialAsync("_Header"); }
+    <div class="header-menu flyout-nav">
+        <div class="nav-close close-menu">
+            <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+        </div>
+        <div class="nav-panel @categoriesSideMenuClass">
+            @{
+                var menu = await Component.InvokeAsync("Widget", new { widgetZone = "theme_header_menu" });
+            }
+            @if (categoriesSideMenuActive)
+            {
+                <div class="drop-menu">
+                    <div class="title">
+                        <span>@T("SevenSpikes.Themes.Pioneer.CategoryMenuText")</span>
+                    </div>
+                    <div class="content">
+                        <ul class="sublist"></ul>
+                    </div>
+                </div>
+            }
+            @if (String.IsNullOrEmpty(await menu.RenderHtmlContentAsync()))
+            {
+                @await Component.InvokeAsync(typeof(TopMenuViewComponent))
+            }
+            else
+            {
+                @menu
+            }
+        </div>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = "pioneer_color_squares" })
+    <div class="master-wrapper-content">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentBefore })
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb") 
+        }
+        @RenderBody()
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentAfter })
+    </div>
+    @await Component.InvokeAsync(typeof(FooterViewComponent))
+</div>
+@await Component.InvokeAsync(typeof(EuCookieLawViewComponent))
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })

@@ -1,0 +1,39 @@
+﻿@using Nop.Core
+@using Nop.Core.Domain.Catalog
+
+@inject CatalogSettings catalogSettings
+@inject IWorkContext workContext
+
+@{
+    var supportRtl = (await workContext.GetWorkingLanguageAsync()).Rtl;
+
+    if (supportRtl)
+    {
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1600.rtl.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1345.rtl.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1024.rtl.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/768.rtl.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/mobile.rtl.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/styles.rtl.css");
+    }
+    else
+    {
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1600.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1345.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/1024.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/768.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/mobile.css");
+        NopHtml.AppendCssFileParts("~/Themes/Pioneer/Content/css/styles.css");
+    }
+
+    if (catalogSettings.DisplayAllPicturesOnCatalogPages)
+    {
+        NopHtml.AppendCssFileParts("~/lib_npm/swiper/swiper-bundle.min.css");
+    }
+
+    <script src="~/Plugins/SevenSpikes.Core/Scripts/footable.min.js" asp-location="Footer"></script>
+    <script src="~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.core.min.js" asp-location="Footer"></script>
+    <script src="~/Plugins/SevenSpikes.Core/Scripts/sevenspikes.theme.min.js" asp-location="Footer"></script>
+
+    <script src="~/Themes/Pioneer/Content/scripts/pioneer.js" asp-location="Footer"></script>
+}

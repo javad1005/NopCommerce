@@ -1,0 +1,35 @@
+﻿@model ProductDetailsModel
+
+@{
+    var productAvailability = string.Empty;
+    productAvailability = Model.InStock ? "in-stock" : "no-stock";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.StockAvailability) || Model.DisplayBackInStockSubscription)
+{
+    <div class="availability">
+        @if (!string.IsNullOrWhiteSpace(Model.StockAvailability))
+        {
+            <div class="stock @productAvailability">
+                <span class="label">@T("Products.Availability"):</span>
+                <span class="value" id="stock-availability-value-@Model.Id">@Model.StockAvailability</span>
+            </div>
+        }
+        @await Html.PartialAsync("_BackInStockSubscription", Model)
+    </div>
+    // use script to toggle Availability class names when Inventoory Method is set to "Track by Product Attributes"
+    <script asp-location="Footer">
+        $(document).on('product_attributes_changed', function (data) {
+
+            if (data.changedData.stockAvailability == '@T("Products.Availability.InStock")') {
+                $('#stock-availability-value-@Model.Id').parent().removeClass('no-stock').addClass('in-stock');
+            }
+            else if (data.changedData.stockAvailability == '@T("Products.Availability.OutOfStock")') {
+                $('#stock-availability-value-@Model.Id').parent().removeClass('in-stock').addClass('no-stock');
+            }
+            else {
+                $('#stock-availability-value-@Model.Id').parent().removeClass('in-stock no-stock');
+            }
+        });
+    </script>
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Show Stores With Products",
+  "SystemName": "Widgets.ShowStoresWithProducts",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "rastebazare team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.ShowStoresWithProducts.dll",
+  "Description": "توجه : این پلاگین نیازمند پلاگین api بوده .با این پلاگین شما می توانید فروشگاها و محصولات آنها را نمایش  دهید ."
+}
